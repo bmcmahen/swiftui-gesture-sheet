@@ -8,47 +8,6 @@
 
 import SwiftUI
 
-enum ButtonIntent {
-    case primary, secondary
-}
-
-
-struct ButtonIntentModifier : ViewModifier {
-    
-    var intent = ButtonIntent.secondary
-    
-    func getBackgroundColor(intent: ButtonIntent) -> Color {
-        switch intent {
-        case .primary:
-            return Color.blue
-        default:
-            return Color.green
-        }
-    }
-    
-    func body(content: Content) -> some View {
-        content.background(getBackgroundColor(intent: self.intent))
-    }
-}
-
-
-struct ContactButton : View {
-    var action: () -> Void
-    var intent = ButtonIntent.secondary
-    
-    var label: () -> Text
-  
-    var body: some View {
-        Button(action: action) {
-            label()
-                .color(Color.white)
-                .padding()
-                .modifier(ButtonIntentModifier(intent: .secondary))
-                .cornerRadius(5)
-        }
-      
-    }
-}
 
 struct CircleProfile : View {
     var image: Image
@@ -60,7 +19,6 @@ struct CircleProfile : View {
             .aspectRatio(CGSize(width: 50, height: 50), contentMode: .fill)
             .clipShape(Circle())
             .overlay(Circle().stroke(Color.white, lineWidth: 4))
-//            .shadow(radius: 10)
         
     }
 }
@@ -70,7 +28,7 @@ struct ContentView : View {
     
     @Binding var showMenu: Bool
     
-    func onContact() {
+    func onMenu() {
         self.showMenu.toggle()
     }
     
@@ -93,7 +51,7 @@ struct ContentView : View {
                     .lineLimit(nil)
                     .multilineTextAlignment(.center)
                     .padding(.horizontal)
-                Button(action: onContact) {
+                Button(action: onMenu) {
                     Text("Show menu")
                 }.padding()
             }.padding()
